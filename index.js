@@ -171,7 +171,6 @@ exports.createPresignedURL = function(
   options.protocol = options.protocol || "https";
   options.timestamp = options.timestamp || Date.now();
   options.region = options.region || process.env.AWS_REGION || "us-east-1";
-  options.expires = options.expires || 86400; // 24 hours
   options.headers = options.headers || {};
   options.signSessionToken = options.signSessionToken || false;
   options.doubleEscape =
@@ -187,7 +186,6 @@ exports.createPresignedURL = function(
     "/" +
     exports.createCredentialScope(options.timestamp, options.region, service);
   query["X-Amz-Date"] = toTime(options.timestamp);
-  query["X-Amz-Expires"] = options.expires;
   query["X-Amz-SignedHeaders"] = exports.createSignedHeaders(options.headers);
 
   // when a session token must be "signed" into the canonical request
